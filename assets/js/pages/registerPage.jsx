@@ -24,7 +24,7 @@ const RegisterPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const response = await axios.post('https://127.0.0.1:8000/api/users', {
+            const response = await axios.post("https://social-planet.herokuapp.com/api/users", {
                 "firstName": userData.firstName,
                 "lastName": userData.lastName,
                 "email": userData.email,
