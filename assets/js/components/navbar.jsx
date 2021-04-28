@@ -7,7 +7,7 @@ const Navbar = ({ isAuth, onLogout, history }) => {
   const handleLogout = () => {
     AuthAPI.logout();
     onLogout(false);
-    history.push('/login')
+    history.push('/login');
   }
 
     return ( 
