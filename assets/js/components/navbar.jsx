@@ -2,10 +2,12 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import AuthAPI from "../services/authAPI"
 
-const Navbar = () => {
+const Navbar = ({ isAuth, onLogout, history }) => {
 
   const handleLogout = () => {
-    AuthAPI.logout()
+    AuthAPI.logout();
+    onLogout(false);
+    history.push('/login')
   }
 
     return ( 
@@ -38,17 +40,23 @@ const Navbar = () => {
         </li> */}
       </ul>
       <ul className="navbar-nav ml-auto">
-        <li className="nav-item"><NavLink to="/register" className="nav-link">Inscription</NavLink></li>
-        <li className="nav-item">
-          <NavLink to="/login" className="btn btn-success">Connexion</NavLink>
-        </li>
-        <li className="nav-item">
+        {(!isAuth && (
+        <>
+          <li className="nav-item">
+            <NavLink to="/register" className="nav-link">Inscription</NavLink></li>
+          <li className="nav-item">
+            <NavLink to="/login" className="btn btn-success">Connexion</NavLink>
+          </li>
+        </>
+        )) || (
+          <li className="nav-item">
           <button 
           onClick={handleLogout} 
           className="btn btn-danger"
           >
             Déconexion</button>
-        </li>
+          </li>
+        )} 
       </ul>
       {/* <form className="form-inline my-2 my-lg-0">
         <input className="form-control mr-sm-2" type="text" placeholder="Search" />

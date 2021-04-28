@@ -21,9 +21,8 @@ function authenticate(credentials) {
 }
 
 function setAxiosToken(token) {
-    axios.defaults.headers["Authorization"] = `Bearer ${data.token}`; 
+    axios.defaults.headers["Authorization"] = "Bearer " + token;
 }
-
 function setup() {
     // Voir si on a un token ?
     const token = window.localStorage.getItem("authToken")
@@ -39,9 +38,25 @@ function setup() {
         logout()
     }
 }
+function isAuth() {
+
+  // Y a t'il un token ?
+  const token = window.localStorage.getItem("authToken")
+  // Token valide ? 
+  if(token){
+    const {exp: expiration} = jwtDecode(token)
+    if(expiration * 1000 > new Date().getTime()) {
+      return true
+    }
+    return false
+  }
+  return false
+}
+
 
 export default {
     authenticate,
     logout,
-    setup
+    setup,
+    isAuth
 }

@@ -3,7 +3,7 @@ import React, {  useState } from 'react'
 import { useHistory } from 'react-router'
 import AuthAPI from '../services/authAPI'
 
-const LoginPage = props => {
+const LoginPage = ({onLogin}) => {
 
     let history = useHistory();
     const [credentials, setCredentials] = useState({
@@ -22,11 +22,12 @@ const LoginPage = props => {
         try{
            await AuthAPI.authenticate(credentials);
            setError("");
-           history.push("/")   
+           onLogin(true);
+           history.push("/"); 
         }catch(error){
             setError(
                 "Aucun compte ne possède cette adresse email"
-            )
+            );
         }        
     }
 
