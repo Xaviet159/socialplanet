@@ -41,8 +41,6 @@ const RegisterPage = () => {
         }catch(error){
             console.log(error.response.data.violations)
         }
-
-
     }
 
   return (

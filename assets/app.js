@@ -1,24 +1,37 @@
 //* Global Imports
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter, Switch, Route, withRouter } from "react-router-dom";
-// import { Route } from 'react-router-dom';
-//* Components Imports
-// import PrivateRoute from './components/shared/PrivateRoute'
-// import Login from './components/pages/Login';
-// import Layout from './components/shared/Layout';
+import { HashRouter, Switch, Route, withRouter, Redirect } from "react-router-dom";
+// component import
 import Navbar from './js/components/navbar';
 import HomePage from './js/pages/homPage';
 import LoginPage from './js/pages/loginPage'
 import ProjetPage from './js/pages/projetPage'
 import AuthAPI from './js/services/authAPI'
 import RegisterPage from './js/pages/registerPage'
+import AdminPage from './js/pages/adminPage'
+
 
 
 // import Setup from "./Services/Setup";
 // import routes from "./js/routes";
 AuthAPI.setup()
 
+const PrivateRoute = ({ path, isAuth, component }) => {
+    return isAuth ? (
+        <Route exact path={path} component={component} />
+    ) : (
+            <Redirect to="/login" />
+        )
+}
+
+const AdminRoute = ({ path, isAdmin, component }) => {
+    return isAdmin ? (
+        <Route exact path={path} component={component} />
+    ) : (
+            <Redirect to="/" />
+        )
+}
 
 // const setup = Setup.CheckAll();
 function App() {
@@ -27,6 +40,10 @@ function App() {
     const [isAuth, setIsAuth] = useState(
         AuthAPI.isAuth()
         );
+    const [isAdmin, setIsAdmin] = useState(
+        AuthAPI.isAdmin()
+    );
+    
      console.log(isAuth)   
     
     const NavbarWithRouter = withRouter(Navbar)
@@ -40,7 +57,9 @@ function App() {
                     <Route path="/login" render={props => <LoginPage onLogin={setIsAuth}/>} />
                     <Route path="/project" component={ProjetPage} />
                     <Route path="/register" component={RegisterPage} />
+                    <AdminRoute path="/admin" isAdmin={isAdmin} component={AdminPage} />
                     <Route path="/" component={HomePage} />
+                    
                 </Switch>
             </main>
 

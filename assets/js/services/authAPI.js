@@ -1,11 +1,26 @@
 import axios from "axios"
 import jwtDecode from "jwt-decode"
-import { LOGIN_API } from "../services/config"
+import { LOGIN_API, USERS_API } from "../services/config"
 
 
 function logout() {
     window.localStorage.removeItem("authToken")
     delete axios.defaults.headers["Authorization"]
+}
+
+function isAdmin() {
+  // Y a t'il un token ?
+  const token = window.localStorage.getItem("authToken")
+  // Token valide ? 
+  if(token){
+    const { roles } = jwtDecode(token)
+    console.log(roles.includes("ROLE_ADMIN"))
+    if(roles.includes("ROLE_ADMIN")) {
+      return true
+    }
+    return false
+  }
+  return false
 }
 
 function authenticate(credentials) {
@@ -40,12 +55,12 @@ function setup() {
     }
 }
 function isAuth() {
-
   // Y a t'il un token ?
   const token = window.localStorage.getItem("authToken")
   // Token valide ? 
   if(token){
-    const {exp: expiration} = jwtDecode(token)
+    const {exp: expiration, roles} = jwtDecode(token)
+    console.log(roles.includes("ROLE_ADMI"))
     if(expiration * 1000 > new Date().getTime()) {
       return true
     }
@@ -59,5 +74,6 @@ export default {
     authenticate,
     logout,
     setup,
-    isAuth
+    isAuth,
+    isAdmin
 }
