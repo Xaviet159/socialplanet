@@ -14,11 +14,7 @@ function isAdmin() {
   // Token valide ? 
   if(token){
     const { roles } = jwtDecode(token)
-    console.log(roles.includes("ROLE_ADMIN"))
-    if(roles.includes("ROLE_ADMIN")) {
-      return true
-    }
-    return false
+    return roles.includes("ROLE_ADMIN")  
   }
   return false
 }
