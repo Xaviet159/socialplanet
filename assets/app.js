@@ -34,10 +34,11 @@ function App() {
     return (
         <HashRouter>
             <NavbarWithRouter isAuth={isAuth} onLogout={setIsAuth} />
+           
             <main className="container pt-5">
                 <Switch>
                     <Route path="/login" render={props => <LoginPage onLogin={setIsAuth}/>} />
-                    <Route path="/projet" component={ProjetPage} />
+                    <Route path="/project" component={ProjetPage} />
                     <Route path="/register" component={RegisterPage} />
                     <Route path="/" component={HomePage} />
                 </Switch>

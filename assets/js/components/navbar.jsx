@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import AuthAPI from "../services/authAPI"
+import sp from '../../styles/img/logoSP.svg'
 
 const Navbar = ({ isAuth, onLogout, history }) => {
 
@@ -12,14 +13,14 @@ const Navbar = ({ isAuth, onLogout, history }) => {
 
     return ( 
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-    <NavLink className="navbar-brand" to="/">Social Planet</NavLink>
+    <NavLink className="navbar-brand" to="/"><img src={sp} width="150" alt=""/></NavLink>
     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon"></span>
     </button>
   
     <div className="collapse navbar-collapse" id="navbarColor03">
-      <ul className="navbar-nav mr-auto">
-        <li className="nav-item">
+      <ul className="navbar-nav mr-auto" >
+        <li className="nav-item" >
           <NavLink className="nav-link" to="/contact">Contact</NavLink>
         </li>
         <li className="nav-item">

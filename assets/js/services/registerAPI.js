@@ -1,17 +1,16 @@
 import axios from "axios"
+import { LOGIN_API, USERS_API } from "./config"
 
 function register(userData) {
 
     await axios 
-    .post("https://localhost:8000/api/users", userData)
+    .post(USERS_API, userData)
     .then(response => response)
-
-
 }
 
 function authenticate(credentials) {
     return axios
-           .post("https://127.0.0.1:8000/api/login_check", credentials)
+           .post(LOGIN_API, credentials)
            .then(response => response.data.token)
            .then(token => {
              // je stock mon token dans localStorage

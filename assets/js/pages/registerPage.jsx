@@ -1,14 +1,13 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
+import { USERS_API } from "../services/config";
 
 
 const RegisterPage = () => {
     
-    
     let history = useHistory();
       
-
     const [userData, setUserData] = useState({
         firstName: "",
         lastName: "",
@@ -24,7 +23,7 @@ const RegisterPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const response = await axios.post("https://social-planet.herokuapp.com/api/users", {
+            const response = await axios.post(USERS_API, {
                 "firstName": userData.firstName,
                 "lastName": userData.lastName,
                 "email": userData.email,
@@ -54,15 +53,15 @@ const RegisterPage = () => {
         <form onSubmit={handleSubmit}>
             <div className="form-group">
                 <label htmlFor="firstName">Prénom</label>
-                <textarea onChange={handleChange} type="text" error={errors.firstName} className="form-control" name="firstName" id="firstName" rows="3" value={userData.firstName}></textarea>
+                <input onChange={handleChange} type="text" error={errors.firstName} className="form-control" name="firstName" id="firstName" rows="3" value={userData.firstName}></input>
             </div>
             <div className="form-group">
                 <label htmlFor="lastName">Nom</label>
-                <textarea onChange={handleChange} type="text" error={errors.lastName} className="form-control" name="lastName" id="lastName" rows="3" value={userData.lastName}></textarea>
+                <input onChange={handleChange} type="text" error={errors.lastName} className="form-control" name="lastName" id="lastName" rows="3" value={userData.lastName}></input>
             </div>
             <div className="form-group">
                 <label htmlFor="email">Email</label>
-                <textarea onChange={handleChange} type="email" error={errors.email} className="form-control" name="email" id="email" rows="3" value={userData.email}></textarea>
+                <input onChange={handleChange} type="email" error={errors.email} className="form-control" name="email" id="email" rows="3" value={userData.email}></input>
             </div>
             <div className="form-group">
                 <label htmlFor="password">Mot de passe</label>
